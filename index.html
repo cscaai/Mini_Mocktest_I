@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSCA Mathematics Mini-Mock Assessment (48 Questions)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- MathJax for mathematical LaTeX rendering -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+  :root {
+    --ink: #0F172A;
+    --ink-soft: #475569;
+    --canvas: #F8FAFC;
+    --card: #FFFFFF;
+    --line: #E2E8F0;
+
+    /* Primary Accent */
+    --primary: #059669;
+    --primary-dark: #047857;
+    --primary-light: #10B981;
+    --primary-tint: #ECFDF5;
+    --primary-glow: rgba(16, 185, 129, 0.28);
+
+    /* Electric Blue for Timer & Progress */
+    --timer-blue: #2563EB;
+    --timer-cyan: #06B6D4;
+    --timer-glow: rgba(37, 99, 235, 0.35);
+
+    /* Brand Accents */
+    --brand-orange: #F97316;
+    --mint: #10B981;
+    --amber: #D97706;
+    --amber-tint: #FEF3C7;
+    --crimson: #EF4444;
+    --crimson-tint: #FEE2E2;
+
+    --radius-xl: 24px;
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-card: 0 16px 40px rgba(15, 23, 42, 0.08);
+    --shadow-soft: 0 4px 18px rgba(15, 23, 42, 0.04);
+
+    --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { min-height: 100%; margin: 0; padding: 0; }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  button, input, select { font-family: inherit; }
+  button { appearance: none; border: none; cursor: pointer; background: none; color: inherit; }
+
+  .screen { display: none; min-height: 100vh; position: relative; }
+  .screen.is-active { display: flex; flex-direction: column; }
+
+  /* ============ BRAND LOGO SVG ============ */
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    color: var(--ink);
+    user-select: none;
+    vertical-align: middle;
+  }
+  .brand-logo-white { color: #FFFFFF !important; }
+  .csca-logo-svg {
+    display: block;
+    height: 30px;
+    width: auto;
+  }
+
+  /* ============ LOGO TRANSITION OVERLAY ============ */
+  #transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: radial-gradient(circle at center, #0F172A 0%, #090D16 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  #transition-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .transition-brand {
+    transform: scale(0.9);
+    animation: overlayPulse 1.2s ease-in-out infinite alternate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .transition-brand svg {
+    height: 64px;
+    filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.45));
+  }
+  .transition-spinner {
+    width: 46px;
+    height: 46px;
+    border: 4px solid rgba(255, 255, 255, 0.12);
+    border-top-color: var(--timer-cyan);
+    border-right-color: var(--brand-orange);
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+  }
+  .transition-text {
+    font-family: var(--font-mono);
+    color: #93C5FD;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  @keyframes overlayPulse {
+    0% { transform: scale(0.94); opacity: 0.9; }
+    100% { transform: scale(1.05); opacity: 1; }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ============ VIBRANT, BRIGHTER INTRO SCREEN BACKGROUND ============ */
+  #screen-entry {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 16px;
+    min-height: 100vh;
+    /* Lively, brighter ambient gradient mesh replacing the pitch dark background */
+    background: 
+      radial-gradient(circle at 18% 22%, rgba(56, 189, 248, 0.42) 0%, transparent 48%),
+      radial-gradient(circle at 82% 78%, rgba(249, 115, 22, 0.30) 0%, transparent 50%),
+      radial-gradient(circle at 50% 12%, rgba(16, 185, 129, 0.35) 0%, transparent 55%),
+      linear-gradient(135deg, #1E293B 0%, #0F2A3F 45%, #0B332B 80%, #0D281E 100%);
+    overflow: hidden;
+  }
+  #entry-bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: auto;
+  }
+
+  /* Floating Math Badges */
+  .floating-math-symbol {
+    position: absolute;
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.22);
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 38px;
+    user-select: none;
+    pointer-events: none;
+    animation: floatAnim 6s ease-in-out infinite alternate;
+  }
+  @keyframes floatAnim {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-22px) rotate(10deg); }
+  }
+
+  .entry-card-container {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 920px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.85);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    animation: fadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .entry-hero-side {
+    background: linear-gradient(145deg, #064E3B 0%, #0F172A 70%, #1E1B4B 100%);
+    color: #fff;
+    padding: 44px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .entry-hero-side::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .entry-pill-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .fun-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, #F97316, #EC4899);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .hero-timer-pill {
+    background: rgba(37, 99, 235, 0.3);
+    border: 1px solid rgba(147, 197, 253, 0.4);
+    color: #93C5FD;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 999px;
+  }
+
+  .entry-hero-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 18px 0 10px;
+    background: linear-gradient(135deg, #FFFFFF 40%, #6EE7B7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .entry-hero-desc {
+    color: #CBD5E1;
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .topic-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .topic-pill {
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: #E2E8F0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .entry-form-side {
+    padding: 44px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #FFFFFF;
+  }
+  .entry-form-side h2 {
+    font-family: var(--font-display);
+    font-size: 23px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .entry-form-side p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 7px;
+  }
+  .field select, .field input {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--line);
+    font-size: 15px;
+    color: var(--ink);
+    background: #F8FAFC;
+    transition: all .15s ease;
+  }
+  .field select:focus-visible, .field input:focus-visible {
+    outline: none;
+    border-color: var(--timer-blue);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+    background: #fff;
+  }
+
+  .btn {
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: var(--radius-sm);
+    padding: 14px 22px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all .15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #fff;
+    box-shadow: 0 8px 24px var(--primary-glow);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  }
+  .btn-blue {
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+    color: #fff;
+    box-shadow: 0 8px 24px var(--timer-glow);
+  }
+  .btn-blue:hover:not(:disabled) {
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  }
+  .btn-ghost { background: transparent; color: var(--ink-soft); border: 1.5px solid var(--line); }
+  .btn-ghost:hover:not(:disabled) { border-color: var(--primary); color: var(--primary-dark); background: var(--primary-tint); }
+
+  /* ============ EXAM INTERFACE (ELECTRIC BLUE PROGRESS) ============ */
+  .timer-track {
+    height: 7px;
+    width: 100%;
+    background: #1E293B;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .timer-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #38BDF8 0%, #2563EB 70%, #1D4ED8 100%);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+    transition: width 1s linear;
+  }
+  .timer-track.critical .timer-fill {
+    background: linear-gradient(90deg, #FB7185, #EF4444);
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.8);
+  }
+
+  .exam-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    background: #0B1329;
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+  .exam-header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .exam-header-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: .01em;
+  }
+  .exam-header-title small {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 12px;
+    color: #94A3B8;
+    margin-top: 2px;
+  }
+
+  .timer-display {
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 18px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.3), rgba(6, 182, 212, 0.2));
+    border: 1.5px solid rgba(56, 189, 248, 0.6);
+    color: #38BDF8;
+    padding: 7px 18px;
+    border-radius: 999px;
+    letter-spacing: .04em;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  }
+  .timer-display.critical {
+    border-color: rgba(239, 68, 68, 0.8);
+    background: rgba(239, 68, 68, 0.25);
+    color: #FCA5A5;
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+  }
+
+  .exam-body {
+    flex: 1;
+    display: flex;
+    gap: 28px;
+    padding: 24px 28px 40px;
+    max-width: 1260px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  .sidebar {
+    width: 290px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 24px;
+  }
+  .student-pill-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    box-shadow: var(--shadow-soft);
+  }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--primary-tint); color: var(--primary-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-family: var(--font-display);
+    border: 1.5px solid #A7F3D0;
+  }
+  .student-card-info .name { font-weight: 700; font-size: 14px; color: var(--ink); }
+  .student-card-info .sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+
+  .grid-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-soft);
+  }
+  .grid-header {
+    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;
+  }
+  .grid-header .label { font-weight: 800; font-size: 13px; }
+  .grid-header .count { font-family: var(--font-mono); font-size: 12px; color: var(--primary-dark); font-weight: 700; }
+
+  .q-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .q-cell {
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    border: 1.5px solid var(--line);
+    background: #FBFCFE;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 11.5px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    transition: all .12s ease;
+  }
+  .q-cell:hover { border-color: var(--primary); color: var(--primary-dark); }
+  .q-cell.answered { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .q-cell.marked::after {
+    content: ''; position: absolute; top: -2px; right: -2px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--brand-orange); border: 1.5px solid #fff;
+  }
+  .q-cell.current {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    border-color: var(--timer-blue);
+    font-weight: 800;
+  }
+
+  .question-panel { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .question-nav { display: flex; align-items: center; justify-content: space-between; }
+  .question-counter {
+    font-family: var(--font-mono); font-weight: 700; font-size: 13px;
+    color: var(--primary-dark); background: var(--primary-tint);
+    border: 1px solid #A7F3D0; padding: 7px 16px; border-radius: 999px;
+  }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 34px;
+    box-shadow: var(--shadow-card);
+  }
+  .topic-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--timer-blue); background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    padding: 4px 10px; border-radius: 6px; margin-bottom: 16px;
+  }
+  .question-text {
+    font-size: 17.5px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+
+  .options-list { display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+  .option-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 15px 18px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--line);
+    background: #FBFCFE;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .14s ease;
+  }
+  .option-item:hover { border-color: var(--primary); background: #F0FDF4; }
+  .option-item.selected {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+    font-weight: 600;
+  }
+  .option-radio {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; background: #fff;
+  }
+  .option-item.selected .option-radio { border-color: var(--primary); background: var(--primary); }
+  .option-radio::after {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: #fff;
+    opacity: 0; transform: scale(0); transition: all .12s ease;
+  }
+  .option-item.selected .option-radio::after { opacity: 1; transform: scale(1); }
+
+  .question-actions {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 22px; border-top: 1px solid var(--line);
+  }
+
+  /* ============ BOTTOM SUBMISSION SHEET ============ */
+  .toast-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .toast-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .bottom-submit-card {
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.35);
+    border: 1.5px solid var(--line);
+    width: 100%;
+    max-width: 540px;
+    padding: 24px 28px;
+    transform: translateY(40px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .toast-backdrop.is-open .bottom-submit-card {
+    transform: translateY(0);
+  }
+  .submit-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .submit-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FEF3C7;
+    color: #D97706;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .submit-card-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .submit-card-header p {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .submit-card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  /* ============ OUTRO / RESULTS SCREEN ============ */
+  #screen-outro {
+    align-items: center;
+    padding: 40px 20px 70px;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .outro-card {
+    width: 100%;
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+    padding: 38px;
+    margin-bottom: 24px;
+  }
+  .score-header { text-align: center; margin-bottom: 28px; }
+  .score-header h2 { font-family: var(--font-display); font-size: 28px; font-weight: 800; margin: 12px 0 6px; }
+  
+  .score-badge {
+    display: inline-block;
+    padding: 7px 22px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 14px;
+    font-family: var(--font-mono);
+    letter-spacing: .03em;
+    white-space: nowrap;
+  }
+  .score-badge.tier-good { background: var(--primary-tint); color: var(--primary-dark); border: 1.5px solid #A7F3D0; }
+  .score-badge.tier-average { background: var(--amber-tint); color: #B45309; border: 1.5px solid #FDE68A; }
+  .score-badge.tier-poor { background: var(--crimson-tint); color: var(--crimson); border: 1.5px solid #FECACA; }
+
+  .score-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    margin-bottom: 28px; text-align: center;
+  }
+  .stat-box {
+    background: #F8FAFC; border: 1px solid var(--line);
+    padding: 16px 10px; border-radius: var(--radius-md);
+  }
+  .stat-val {
+    font-family: var(--font-mono);
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .stat-lbl { font-size: 12px; color: var(--ink-soft); margin-top: 4px; font-weight: 600; }
+
+  .action-buttons-row {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .review-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin: 0 0 20px; }
+  .review-list { display: flex; flex-direction: column; gap: 18px; }
+  .review-item {
+    background: #FBFCFE; border: 1px solid var(--line);
+    border-radius: var(--radius-md); padding: 22px;
+  }
+  .review-item.is-correct { border-left: 5px solid var(--primary); }
+  .review-item.is-incorrect { border-left: 5px solid var(--crimson); }
+  .review-item.is-skipped { border-left: 5px solid var(--brand-orange); }
+
+  .review-q-num { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px; }
+  .review-q-text { font-weight: 600; font-size: 15.5px; margin-bottom: 12px; }
+  .review-ans { font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
+  .review-ans span { font-weight: 600; }
+  .review-ans.user-ans { color: var(--ink-soft); }
+  .review-ans.correct-ans { color: var(--primary-dark); }
+  .review-exp {
+    margin-top: 12px; padding: 14px 16px; border-radius: 6px;
+    font-size: 13.5px; color: #334155; line-height: 1.55;
+    background: #F1F5F9; border: 1px dashed var(--line);
+  }
+
+  /* ============ PRETTY REPORT CARD & HIGHLIGHTED LOGO ============ */
+  @media print {
+    body * { visibility: hidden; }
+    #printable-report-modal, #printable-report-modal * { visibility: visible; }
+    #printable-report-modal {
+      position: absolute; left: 0; top: 0; width: 100%;
+      background: #fff; padding: 0; margin: 0; display: block !important;
+    }
+    .no-print { display: none !important; }
+  }
+
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 10000;
+    background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 20px;
+    overflow-y: auto;
+  }
+  .modal-backdrop.is-open { display: flex; }
+  
+  /* PRETTY ORNATE REPORT CARD BORDER */
+  .report-sheet {
+    background: #FFFFFF;
+    border-radius: 22px;
+    max-width: 780px;
+    width: 100%;
+    padding: 42px 46px;
+    box-shadow: 0 30px 75px rgba(15, 23, 42, 0.35);
+    /* Dual-layered decorative certificate border */
+    border: 3px solid #059669;
+    outline: 6px solid #ECFDF5;
+    outline-offset: -12px;
+    position: relative;
+  }
+  
+  .report-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #CBD5E1;
+    padding-bottom: 22px;
+    margin-bottom: 24px;
+  }
+  
+  /* HIGHLIGHTED LOGO CONTAINER IN REPORT CARD */
+  .report-logo-highlight {
+    background: linear-gradient(135deg, #0F172A 0%, #064E3B 100%);
+    padding: 10px 18px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(6, 78, 59, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .report-meta-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+    background: #F8FAFC; border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin-bottom: 24px;
+  }
+  .report-meta-cell label {
+    display: block; font-size: 11px; text-transform: uppercase;
+    font-weight: 700; color: var(--ink-soft); font-family: var(--font-mono);
+  }
+  .report-meta-cell div { font-size: 15px; font-weight: 800; color: var(--ink); margin-top: 4px; }
+  
+  .report-breakdown-table {
+    width: 100%; border-collapse: collapse; margin-bottom: 24px;
+  }
+  .report-breakdown-table th, .report-breakdown-table td {
+    padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); font-size: 13px;
+  }
+  .report-breakdown-table th { background: #F1F5F9; font-weight: 700; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 860px) {
+    .entry-card-container { grid-template-columns: 1fr; }
+    .exam-body { flex-direction: column; padding: 16px; }
+    .sidebar { width: 100%; position: static; }
+    .score-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ LOGO TRANSITION OVERLAY ============ -->
+  <div id="transition-overlay">
+    <div class="transition-brand">
+      <svg viewBox="0 0 108 30" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="23" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="900" font-size="28" fill="#FFFFFF" letter-spacing="-0.03em">csca<tspan fill="#F97316">.</tspan>ai</text>
+      </svg>
+      <div class="transition-spinner"></div>
+      <div class="transition-text" id="transition-status-text">INITIALIZING ASSESSMENT</div>
+    </div>
+  </div>
+
+  <!-- ============ ENTRY SCREEN ============ -->
+  <div id="screen-entry" class="screen is-active">
+    <canvas id="entry-bg-canvas"></canvas>
+
+    <!-- Floating Math Glyphs -->
+    <div class="floating-math-symbol" style="top:10%; left:8%;">$\int$</div>
+    <div class="floating-math-symbol" style="bottom:15%; left:10%;">$\sin^2\alpha$</div>
+    <div class="floating-math-symbol" style="top:12%; right:8%;">$\log_a x$</div>
+    <div class="floating-math-symbol" style="bottom:12%; right:12%;">$\sum_{i=1}^n$</div>
+
+    <div class="entry-card-container">
+      <!-- Left Hero Column -->
+      <div class="entry-hero-side">
+        <div>
+          <div class="entry-pill-row">
+            <span class="fun-badge">🚀 CSCA MATH PREP</span>
+            <span class="hero-timer-pill">⏱ 60 Mins • 48 Questions</span>
+          </div>
+          <h1 class="entry-hero-title">Mathematics Mini-Mock</h1>
+          <p class="entry-hero-desc">
+            A comprehensive, timed benchmark examination reflecting actual questions from CSCA past papers and lecture modules.
+          </p>
+
+          <div class="topic-tags-grid">
+            <span class="topic-pill">📐 Sets &amp; Intervals</span>
+            <span class="topic-pill">🔍 Function Domains &amp; Inverses</span>
+            <span class="topic-pill">📈 Exponential &amp; Logarithms</span>
+            <span class="topic-pill">🌊 Trig Waves &amp; Periods</span>
+            <span class="topic-pill">⚡ Compound &amp; Double Angles</span>
+          </div>
+        </div>
+
+        <div style="font-size:12px; color:#93C5FD; font-family:var(--font-mono); margin-top:20px;">
+          Standardized Format • Passing Benchmark: 60%
+        </div>
+      </div>
+
+      <!-- Right Candidate Selection Form -->
+      <div class="entry-form-side">
+        <div class="brand-logo" style="margin-bottom:12px;" aria-label="csca.ai">
+          <svg class="csca-logo-svg" viewBox="0 0 108 30" height="28" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="23" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="800" font-size="26" fill="currentColor" letter-spacing="-0.03em">csca<tspan fill="#F97316">.</tspan>ai</text>
+          </svg>
+        </div>
+        <h2>Candidate Login</h2>
+        <p>Select your name below and verify your candidate email to begin the 1-hour assessment.</p>
+
+        <form id="entry-form" onsubmit="handleStartExam(event)">
+          <div class="field">
+            <label for="student-select">Select Student</label>
+            <select id="student-select" required>
+              <option value="" disabled selected>-- Choose your name --</option>
+              <option value="Kristeena Dhakal">Kristeena Dhakal</option>
+              <option value="Adam Cherubin">Adam Cherubin</option>
+              <option value="Elizaveta">Elizaveta</option>
+              <option value="Shreeyana Adhikari">Shreeyana Adhikari</option>
+              <option value="Haura Ssemakula">Haura Ssemakula</option>
+              <option value="Mambo Magali">Mambo Magali</option>
+              <option value="Sam Tshiyuk">Sam Tshiyuk</option>
+              <option value="Mehola Tshiyuk">Mehola Tshiyuk</option>
+              <option value="Nathanael">Nathanael</option>
+              <option value="Kanam Eliel">Kanam Eliel</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="student-email">Candidate Email</label>
+            <input type="email" id="student-email" placeholder="student@example.com" required>
+          </div>
+
+          <button type="submit" class="btn btn-blue" style="width:100%; margin-top:6px;">
+            Start 48-Question Exam &rarr;
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EXAM SCREEN (ELECTRIC BLUE PROGRESS) ============ -->
+  <div id="screen-exam" class="screen">
+    <div class="timer-track" id="timer-track">
+      <div class="timer-fill" id="timer-fill"></div>
+    </div>
+
+    <header class="exam-header">
+      <div class="exam-header-left">
+        <div class="brand-logo brand-logo-white" aria-label="csca.ai">
+          <svg class="csca-logo-svg" viewBox="0 0 108 30" height="28" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="23" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="900" font-size="26" fill="currentColor" letter-spacing="-0.03em">csca<tspan fill="#F97316">.</tspan>ai</text>
+          </svg>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,0.22); padding-left:16px;">
+          <div class="exam-header-title">CSCA Mathematics Mini-Mock Assessment</div>
+          <small>48 Questions • 1 Hour Standard Session</small>
+        </div>
+      </div>
+      <div class="timer-display" id="timer-display">60:00</div>
+    </header>
+
+    <main class="exam-body">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="student-pill-card">
+          <div class="avatar" id="student-avatar">KD</div>
+          <div class="student-card-info">
+            <div class="name" id="display-student-name">Candidate Name</div>
+            <div class="sub" id="display-student-email">email@test.com</div>
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div class="grid-header">
+            <span class="label">Question Navigator</span>
+            <span class="count" id="progress-count">0 / 48 Answered</span>
+          </div>
+          <div class="q-grid" id="q-grid"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--ink-soft); padding:0 4px;">
+          <span>⚪ Unanswered</span>
+          <span>🟢 Answered</span>
+          <span>🟠 Marked</span>
+        </div>
+      </aside>
+
+      <!-- QUESTION CONTAINER -->
+      <section class="question-panel">
+        <div class="question-nav">
+          <div class="question-counter" id="question-counter">Question 1 of 48</div>
+          <button class="btn btn-ghost" id="btn-mark" onclick="toggleMarkQuestion()">🔖 Mark for Review</button>
+        </div>
+
+        <div class="question-card">
+          <span class="topic-tag" id="question-topic">Module Topic</span>
+          <div class="question-text" id="question-text">Question prompt will load here...</div>
+          <div class="options-list" id="options-list"></div>
+
+          <div class="question-actions">
+            <button class="btn btn-ghost" id="btn-prev" onclick="navigateQuestion(-1)">&larr; Previous</button>
+            <div style="display:flex; gap:12px;">
+              <button class="btn btn-ghost" id="btn-next" onclick="navigateQuestion(1)">Next &rarr;</button>
+              <button class="btn btn-primary" onclick="openSubmitToast()">Submit Mini-Mock</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============ IN-APP BOTTOM NOTIFICATION SHEET FOR SUBMISSION ============ -->
+  <div class="toast-backdrop" id="submit-toast-backdrop">
+    <div class="bottom-submit-card">
+      <div class="submit-card-header">
+        <div class="submit-icon-circle">⚠️</div>
+        <div>
+          <h3>Submit Assessment Confirmation</h3>
+          <p id="submit-warning-text">Ready to conclude your exam?</p>
+        </div>
+      </div>
+      <div class="submit-card-actions">
+        <button class="btn btn-ghost" style="flex:1;" onclick="closeSubmitToast()">Continue Test</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="executeFinalSubmission()">Confirm &amp; Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ OUTRO SCREEN ============ -->
+  <div id="screen-outro" class="screen">
+    <div class="outro-card">
+      <div class="score-header">
+        <div class="brand-logo" style="margin-bottom:12px;" aria-label="csca.ai">
+          <svg class="csca-logo-svg" viewBox="0 0 108 30" height="28" xmlns="http://www.w3.org/2000/svg">
+            <text x="0" y="23" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="900" font-size="26" fill="currentColor" letter-spacing="-0.03em">csca<tspan fill="#F97316">.</tspan>ai</text>
+          </svg>
+        </div>
+        <div class="score-badge" id="score-badge">Good score</div>
+        <h2>Assessment Performance Summary</h2>
+        <p style="color:var(--ink-soft); margin:0;">
+          Candidate: <strong id="outro-student-name">Student Name</strong> • <span id="outro-student-email">email@test.com</span>
+        </p>
+      </div>
+
+      <div class="score-stats">
+        <div class="stat-box">
+          <div class="stat-val" id="stat-score">0 / 48</div>
+          <div class="stat-lbl">Correct Answers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-pct">0%</div>
+          <div class="stat-lbl">Percentage</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-grade">Good score</div>
+          <div class="stat-lbl">Predicted Tier</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-time">0m 0s</div>
+          <div class="stat-lbl">Time Spent</div>
+        </div>
+      </div>
+
+      <div id="export-status" style="text-align:center; font-size:13px; color:var(--ink-soft); margin-bottom:18px;"></div>
+
+      <div class="action-buttons-row">
+        <button class="btn btn-blue" onclick="openReportModal()">
+          📄 Download Official Report Card
+        </button>
+        <button class="btn btn-ghost" onclick="restartExam()">
+          ↺ Retake Mini-Mock
+        </button>
+      </div>
+    </div>
+
+    <div class="outro-card">
+      <h3 class="review-title">Detailed Solutions &amp; Pedagogical Insights</h3>
+      <div class="review-list" id="review-list"></div>
+    </div>
+  </div>
+
+  <!-- ============ PRETTY REPORT CARD MODAL WITH HIGHLIGHTED LOGO ============ -->
+  <div class="modal-backdrop" id="printable-report-modal">
+    <div class="report-sheet" id="report-sheet">
+      <div class="report-sheet-header">
+        <div>
+          <!-- HIGHLIGHTED CSCA.AI LOGO IN REPORT CARD -->
+          <div class="report-logo-highlight">
+            <svg class="csca-logo-svg" viewBox="0 0 108 30" height="28" xmlns="http://www.w3.org/2000/svg">
+              <text x="0" y="23" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="900" font-size="28" fill="#FFFFFF" letter-spacing="-0.03em">csca<tspan fill="#F97316">.</tspan>ai</text>
+            </svg>
+          </div>
+          <h2 style="font-size:21px; font-weight:800; margin:12px 0 2px;">Official Performance Diagnostic</h2>
+          <span style="font-family:var(--font-mono); font-size:12px; color:var(--primary-dark); font-weight:600;">CSCA Mini-Mock Standardized Verification</span>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--ink-soft);" id="rep-date">2026-03-30</div>
+          <div style="font-size:11px; color:#10B981; font-weight:700; margin-top:4px;">VERIFIED COHORT REPORT</div>
+        </div>
+      </div>
+
+      <div class="report-meta-grid">
+        <div class="report-meta-cell">
+          <label>Candidate Name</label>
+          <div id="rep-name">Kristeena Dhakal</div>
+        </div>
+        <div class="report-meta-cell">
+          <label>Registered Email</label>
+          <div id="rep-email">kristeena@example.com</div>
+        </div>
+        <div class="report-meta-cell">
+          <label>Score &amp; Predicted Tier</label>
+          <div id="rep-score-tier">42 / 48 (88%) — Good score</div>
+        </div>
+        <div class="report-meta-cell">
+          <label>Time Invested</label>
+          <div id="rep-time">48m 12s (Allotted 60m)</div>
+        </div>
+      </div>
+
+      <h4 style="font-size:13px; text-transform:uppercase; font-family:var(--font-mono); letter-spacing:.05em; margin:0 0 10px;">Curriculum Breakdown (5 Core Topics)</h4>
+      <table class="report-breakdown-table">
+        <thead>
+          <tr>
+            <th>Module Domain</th>
+            <th>Questions</th>
+            <th>Accuracy</th>
+            <th>Proficiency Rating</th>
+          </tr>
+        </thead>
+        <tbody id="report-breakdown-rows"></tbody>
+      </table>
+
+      <div class="no-print" style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+        <button class="btn btn-ghost" onclick="closeReportModal()">Close</button>
+        <button class="btn btn-blue" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ JAVASCRIPT LOGIC ============ -->
+  <script>
+    /* ==========================================================================
+       1. QUESTION BANK: EXACTLY 48 HIGH-YIELD CSCA QUESTIONS
+       ========================================================================== */
+    const questions = [
+      // 1-10: Sets & Inequalities
+      {
+        id: 1,
+        topic: "Sets: Subsets & Elements",
+        question: "If sets $A = \\{1, 2\\}$ and $B = \\{1, 2, 3\\}$, then which of the following is correct? ( )",
+        options: ["A. $B \\subseteq A$", "B. $A = B$", "C. $A \\in B$", "D. $A \\subseteq B$"],
+        correct: 3,
+        explanation: "Every element of $A$ ($1$ and $2$) belongs to $B$. Thus $A \\subseteq B$. [CSCA 12.21 Q1]"
+      },
+      {
+        id: 2,
+        topic: "Sets: Intervals & Intersections",
+        question: "If sets $A = (-1, 3)$ and $B = [2, 4]$, then $A \\cap B =$ ( )",
+        options: ["A. $[2, 3]$", "B. $[2, 3)$", "C. $(2, 3]$", "D. $(2, 3)$"],
+        correct: 1,
+        explanation: "The intersection consists of all numbers satisfying $-1 < x < 3$ and $2 \\le x \\le 4$, yielding $[2, 3)$. [CSCA 12.21 Q2]"
+      },
+      {
+        id: 3,
+        topic: "Sets: Set-Builder Quadratic Form",
+        question: "If set $A = \\{x \\mid x^2 = 1\\}$, then which representation is correct? ( )",
+        options: ["A. $A = -1$", "B. $\\{1\\} \\subseteq A$", "C. $1 \\subseteq A$", "D. $A = \\{1\\}$"],
+        correct: 1,
+        explanation: "$x^2 = 1 \\implies A = \\{-1, 1\\}$. The singleton $\\{1\\}$ is a subset of $A$: $\\{1\\} \\subseteq A$. [CSCA June Q1]"
+      },
+      {
+        id: 4,
+        topic: "Sets: High Endpoints Intersection",
+        question: "If sets $A = \\{1, 2, 3\\}$ and $B = \\{2, 3, \\dots, 2026\\}$, then $A \\cap B =$ ( )",
+        options: ["A. $\\{2, 3\\}$", "B. $\\{1, 2, 3\\}$", "C. $\\{2, 3, \\dots, 2026\\}$", "D. $\\{1, 2, \\dots, 2026\\}$"],
+        correct: 0,
+        explanation: "The elements present in both sets are exclusively $2$ and $3$. [CSCA June Q2]"
+      },
+      {
+        id: 5,
+        topic: "Sets: Membership & Empty Set",
+        question: "Let $A = \\{6, 7, 8, 9, 10\\}$ and $\\Phi$ denote the empty set. Which statement is correct? ( )",
+        options: ["A. $9 \\in A$", "B. $\\{6\\} \\in A$", "C. $6 \\subseteq A$", "D. $\\Phi \\in A$"],
+        correct: 0,
+        explanation: "$9$ is an individual member of $A$, so $9 \\in A$ is true. [CSCA 1.25 Q1]"
+      },
+      {
+        id: 6,
+        topic: "Sets: Union of Intervals",
+        question: "Let $A = \\{x \\mid -2 \\le x \\le 2\\}$ and $B = \\{x \\mid x > 0\\}$. Then $A \\cup B =$ ( )",
+        options: ["A. $\\{x \\mid x \\le -2\\}$", "B. $\\{x \\mid 0 < x \\le 2\\}$", "C. $\\{x \\mid x \\ge -2\\}$", "D. $\\{x \\mid -2 \\le x < 0\\}$"],
+        correct: 2,
+        explanation: "Combining $[-2, 2]$ and $(0, +\\infty)$ produces $[-2, +\\infty) = \\{x \\mid x \\ge -2\\}$. [CSCA 1.25 Q2]"
+      },
+      {
+        id: 7,
+        topic: "Inequalities: Quadratic Factorization",
+        question: "The solution set of the quadratic inequality $x^2 - 5x + 4 < 0$ is ( )",
+        options: ["A. $(-4, -1)$", "B. $(-\\infty, 1) \\cup (4, +\\infty)$", "C. $(-\\infty, -4) \\cup (-1, +\\infty)$", "D. $(1, 4)$"],
+        correct: 3,
+        explanation: "$(x - 1)(x - 4) < 0$. With $a > 0$, the values lie between the roots: $(1, 4)$. [CSCA 12.21 Q3]"
+      },
+      {
+        id: 8,
+        topic: "Inequalities: Fractional & Rational Form",
+        question: "The solution set of the rational inequality $\\dfrac{x - 1}{x - 2} \\le 1$ is ( )",
+        options: ["A. $(2, +\\infty)$", "B. $[1, 2)$", "C. $(-\\infty, 2)$", "D. $(-\\infty, 1]$"],
+        correct: 2,
+        explanation: "Subtract $1$: $\\dfrac{x-1-(x-2)}{x-2} = \\dfrac{1}{x-2} \\le 0 \\implies x - 2 < 0 \\implies x < 2$, so $(-\\infty, 2)$. [CSCA 12.21 Q12]"
+      },
+      {
+        id: 9,
+        topic: "Inequalities: Algebraic Axiom Rules",
+        question: "Given $a > b$ and $c \\in \\mathbb{R}$, which of the following is unconditionally true? ( )",
+        options: ["A. $a^2 > b^2$", "B. $ac > bc$", "C. $a + c > b + c$", "D. $|a| > |b|$"],
+        correct: 2,
+        explanation: "Adding any real number $c$ preserves the inequality order: $a + c > b + c$. [CSCA June Q22 & April Q24]"
+      },
+      {
+        id: 10,
+        topic: "Inequalities: AM-GM Optimization",
+        question: "For $x > 0$, the minimum value of $f(x) = x + \\dfrac{9}{x}$ is ( )",
+        options: ["A. $3$", "B. $6$", "C. $9$", "D. $10$"],
+        correct: 1,
+        explanation: "By AM-GM inequality, $x + 9/x \\ge 2\\sqrt{x \\cdot (9/x)} = 2(3) = 6$. Equality holds when $x = 3$. [Module 2 Slide 11]"
+      },
+
+      // 11-19: Functions, Mappings, Parity & Inverses
+      {
+        id: 11,
+        topic: "Functions: Fractional Domain",
+        question: "The domain of the function $y = \\dfrac{1}{x + 1}$ is ( )",
+        options: ["A. $[-1, +\\infty)$", "B. $(-1, +\\infty)$", "C. $(-\\infty, -1) \\cup (-1, +\\infty)$", "D. $(-\\infty, -1)$"],
+        correct: 2,
+        explanation: "The denominator cannot be zero: $x + 1 \\ne 0 \\implies x \\ne -1$. [CSCA 12.21 Q4]"
+      },
+      {
+        id: 12,
+        topic: "Functions: Combined Radical Domain",
+        question: "The domain of the function $f(x) = \\dfrac{1}{x} + \\sqrt{1 - x}$ is ( )",
+        options: ["A. $(-\\infty, 1]$", "B. $(-\\infty, 0) \\cup (0, 1)$", "C. $(-\\infty, 0) \\cup (0, 1]$", "D. $[1, +\\infty)$"],
+        correct: 2,
+        explanation: "Requires $1 - x \\ge 0 \\implies x \\le 1$ and $x \\ne 0$, giving $(-\\infty, 0) \\cup (0, 1]$. [CSCA 1.25 Q5]"
+      },
+      {
+        id: 13,
+        topic: "Functions: Identity Criteria",
+        question: "Which of the following functions is identical to $y = |x|$? ( )",
+        options: ["A. $y = \\sqrt[3]{x^3}$", "B. $y = (\\sqrt{x})^2$", "C. $y = x$", "D. $y = \\sqrt{x^2}$"],
+        correct: 3,
+        explanation: "By definition, $\\sqrt{x^2} = |x|$ for all real numbers $x \\in \\mathbb{R}$. [CSCA 12.21 Q36 & Jan Q35]"
+      },
+      {
+        id: 14,
+        topic: "Functions: Polynomial Quotient Identity",
+        question: "Which pair of functions represents the exact same function? ( )",
+        options: [
+          "A. $y = (\\sqrt{x})^2$ and $y = \\sqrt{x^2}$",
+          "B. $y = \\dfrac{x^4 - 1}{x^2 + 1}$ and $y = x^2 - 1$",
+          "C. $y = 1$ and $y = x^0$",
+          "D. $y = x$ and $y = \\sqrt{x^2}$"
+        ],
+        correct: 1,
+        explanation: "$x^2 + 1 > 0$ for all $x \\in \\mathbb{R}$, so $(x^4 - 1)/(x^2 + 1) = x^2 - 1$ everywhere on $\\mathbb{R}$. [CSCA Jan Q35]"
+      },
+      {
+        id: 15,
+        topic: "Functions: Odd Parity",
+        question: "Which of the following functions is an odd function? ( )",
+        options: ["A. $y = x\\sin x$", "B. $y = x^4\\cos x$", "C. $y = \\cos x$", "D. $y = \\sin x$"],
+        correct: 3,
+        explanation: "$\\sin(-x) = -\\sin x$, satisfying $f(-x) = -f(x)$. The others are even. [CSCA 12.21 Q8]"
+      },
+      {
+        id: 16,
+        topic: "Functions: Even Parity",
+        question: "About the function $f(x) = x^4 + 3$, which statement is correct? ( )",
+        options: [
+          "A. $f(x)$ is an odd function",
+          "B. The graph of $f(x)$ is symmetric about the origin",
+          "C. $f(x)$ is neither odd nor even",
+          "D. $f(x)$ is an even function"
+        ],
+        correct: 3,
+        explanation: "$f(-x) = (-x)^4 + 3 = x^4 + 3 = f(x)$, so the function is even. [CSCA 1.25 Q8]"
+      },
+      {
+        id: 17,
+        topic: "Functions: Cubic Inverse Function",
+        question: "The inverse function of $y = x^3$ is ( )",
+        options: ["A. $y = \\dfrac{x}{3}$", "B. $y = 3^x$", "C. $y = x^3$", "D. $y = \\sqrt[3]{x}$"],
+        correct: 3,
+        explanation: "Solving $y = x^3$ yields $x = \\sqrt[3]{y}$. Swapping gives $y = \\sqrt[3]{x}$. [CSCA 12.21 Q9]"
+      },
+      {
+        id: 18,
+        topic: "Functions: Linear Inverse with Range Domain",
+        question: "The inverse function of $y = 2x,\\; x \\in [-1, 1]$ is ( )",
+        options: [
+          "A. $y = \\dfrac{x}{2},\\; x \\in [-1, 1]$",
+          "B. $y = \\dfrac{x}{2}$",
+          "C. $y = \\dfrac{x}{2},\\; x \\in [-2, 2]$",
+          "D. $y = 2x,\\; x \\in [-1, 1]$"
+        ],
+        correct: 2,
+        explanation: "For $x \\in [-1, 1]$, range of $y$ is $[-2, 2]$. Thus the inverse domain is $[-2, 2]$: $y = x/2,\\; x \\in [-2, 2]$. [CSCA June Q8]"
+      },
+      {
+        id: 19,
+        topic: "Functions: Monotonicity on Intervals",
+        question: "Given that $y = |x|$, which of the following conclusions is correct? ( )",
+        options: [
+          "A. When $x < 0$, the function is an increasing function",
+          "B. When $x > 0$, the function is an increasing function",
+          "C. When $x \\in \\mathbb{R}$, the function is decreasing",
+          "D. When $x \\in \\mathbb{R}$, the function is increasing"
+        ],
+        correct: 1,
+        explanation: "$y = |x|$ decreases on $(-\\infty, 0]$ and increases on $[0, +\\infty)$. [CSCA 1.25 Q11]"
+      },
+
+      // 20-28: Power, Exponential & Logarithmic Functions
+      {
+        id: 20,
+        topic: "Power Functions: Exponent Comparison",
+        question: "Which of the following exponential/power inequalities is correct? ( )",
+        options: [
+          "A. $2.1^{-2} > 1.2^{-2}$",
+          "B. $0.75^{-0.2} > 0.75^{-0.4}$",
+          "C. $2.1^{2/3} > 1.2^{2/3}$",
+          "D. $3^{2.25} > 3^3$"
+        ],
+        correct: 2,
+        explanation: "Since $y = x^{2/3}$ is strictly increasing for $x > 0$ and $2.1 > 1.2$, $2.1^{2/3} > 1.2^{2/3}$. [CSCA 1.25 Q27]"
+      },
+      {
+        id: 21,
+        topic: "Exponential Functions: Monotonic Decay",
+        question: "Which description of the function $y = \\left(\\dfrac{1}{2}\\right)^x$ is correct? ( )",
+        options: [
+          "A. The function is symmetric about the origin",
+          "B. The function is symmetric about the x-axis",
+          "C. The function is increasing",
+          "D. The function is decreasing"
+        ],
+        correct: 3,
+        explanation: "For base $0 < a < 1$, exponential functions are strictly decreasing over $\\mathbb{R}$. [CSCA 12.21 Q26]"
+      },
+      {
+        id: 22,
+        topic: "Exponential Functions: Decreasing Base Range",
+        question: "If the exponential function $y = a^x$ is monotonic decreasing, then the range of $a$ is ( )",
+        options: ["A. $a > 1$", "B. $a < 1$", "C. $a > 0$", "D. $0 < a < 1$"],
+        correct: 3,
+        explanation: "By definition of exponential functions, monotonic decay requires $0 < a < 1$. [CSCA April Q25]"
+      },
+      {
+        id: 23,
+        topic: "Logarithms: Fixed Point Invariance",
+        question: "If the graph of $f(x) = 2 + \\log_a(x - 3)$ $(a > 0, a \\ne 1)$ passes through fixed point $P$, then $P$ is ( )",
+        options: ["A. $(3, 1)$", "B. $(3, 0)$", "C. $(4, 0)$", "D. $(4, 2)$"],
+        correct: 3,
+        explanation: "Set argument $x - 3 = 1 \\implies x = 4$. Then $\\log_a(1) = 0 \\implies f(4) = 2$. Thus $P = (4, 2)$. [CSCA 1.25 Q41]"
+      },
+      {
+        id: 24,
+        topic: "Logarithms: Inversion Sum Calculation",
+        question: "$\\log_2 32 + \\log_{1/2} 32 = $ ( )",
+        options: ["A. $-5$", "B. $10$", "C. $0$", "D. $5$"],
+        correct: 2,
+        explanation: "$\\log_2 32 = 5$ and $\\log_{1/2} 32 = -5$. Sum is $5 + (-5) = 0$. [CSCA 12.21 Q30]"
+      },
+      {
+        id: 25,
+        topic: "Logarithms: Base Change Quotient",
+        question: "$\\dfrac{\\log_5 8}{\\log_{25} 4} + \\log_5 1 = $ ( )",
+        options: ["A. $3$", "B. $2$", "C. $0$", "D. $4$"],
+        correct: 0,
+        explanation: "$\\log_{25} 4 = (2/2)\\log_5 2 = \\log_5 2$. $\\log_5 8 / \\log_5 2 = 3$. Adding $\\log_5 1 = 0$ gives $3$. [CSCA June Q29]"
+      },
+      {
+        id: 26,
+        topic: "Logarithms: Product Power Calculation",
+        question: "$(\\log_3 27)(\\log_4 16) = $ ( )",
+        options: ["A. $5$", "B. $\\dfrac{1}{6}$", "C. $6$", "D. $\\dfrac{2}{3}$"],
+        correct: 2,
+        explanation: "$\\log_3 27 = 3$, $\\log_4 16 = 2$. Product: $3 \\times 2 = 6$. [CSCA April Q30]"
+      },
+      {
+        id: 27,
+        topic: "Logarithms: Monotonicity with Base",
+        question: "Regarding the logarithmic function $y = \\log_a x$, which statement is correct? ( )",
+        options: [
+          "A. Its domain is $(-\\infty, +\\infty)$",
+          "B. When $a > 1$, it is a decreasing function on its domain",
+          "C. When $a > 1$, for all $x > 0$, $\\log_a x > 1$",
+          "D. When $0 < a < 1$, it is a decreasing function on its domain"
+        ],
+        correct: 3,
+        explanation: "Logarithms with base $0 < a < 1$ are strictly decreasing on their domain $(0, +\\infty)$. [CSCA 12.21 Q42]"
+      },
+      {
+        id: 28,
+        topic: "Logarithms: Power & Sum Expression",
+        question: "Let $a = \\lg 4$ and $b = \\lg 5$. Then $a + 2b = $ ( )",
+        options: ["A. $100$", "B. $4$", "C. $2$", "D. $5$"],
+        correct: 2,
+        explanation: "$a + 2b = \\lg 4 + \\lg 5^2 = \\lg(4 \\times 25) = \\lg 100 = 2$. [CSCA March Q29]"
+      },
+
+      // 29-38: Trigonometric Values, Coordinates & Graphs
+      {
+        id: 29,
+        topic: "Trigonometry: Special Value Evaluation",
+        question: "Which of the following results is correct? ( )",
+        options: [
+          "A. $\\tan\\dfrac{\\pi}{3} = 2$",
+          "B. $\\cos\\dfrac{\\pi}{3} = \\dfrac{1}{2}$",
+          "C. $\\sin\\pi = 1$",
+          "D. $\\sin\\dfrac{\\pi}{3} = \\dfrac{1}{2}$"
+        ],
+        correct: 1,
+        explanation: "Standard exact value: $\\cos(60^\\circ) = \\cos(\\pi/3) = 1/2$. [CSCA June Q6]"
+      },
+      {
+        id: 30,
+        topic: "Trigonometry: Obtuse Angle Sine",
+        question: "$\\sin 120^\\circ = $ ( )",
+        options: ["A. $-\\dfrac{1}{2}$", "B. $\\dfrac{1}{2}$", "C. $-\\dfrac{\\sqrt{3}}{2}$", "D. $\\dfrac{\\sqrt{3}}{2}$"],
+        correct: 3,
+        explanation: "$\\sin 120^\\circ = \\sin(180^\\circ - 60^\\circ) = \\sin 60^\\circ = \\dfrac{\\sqrt{3}}{2}$. [CSCA April Q7]"
+      },
+      {
+        id: 31,
+        topic: "Trigonometry: Terminal Side Coordinates",
+        question: "If point $P(1, 2)$ lies on the terminal side of angle $\\alpha$, then $\\sin \\alpha = $ ( )",
+        options: ["A. $\\dfrac{\\sqrt{5}}{5}$", "B. $\\dfrac{\\sqrt{2}}{2}$", "C. $\\dfrac{1}{2}$", "D. $\\dfrac{2\\sqrt{5}}{5}$"],
+        correct: 3,
+        explanation: "$r = \\sqrt{1^2 + 2^2} = \\sqrt{5}$. $\\sin \\alpha = y/r = 2/\\sqrt{5} = \\dfrac{2\\sqrt{5}}{5}$. [CSCA June Q14]"
+      },
+      {
+        id: 32,
+        topic: "Trigonometry: ASTC Quadrant Cosine",
+        question: "Given $\\sin \\alpha = \\dfrac{3}{5}$ and $\\alpha$ is in the second quadrant, then $\\cos \\alpha = $ ( )",
+        options: ["A. $\\dfrac{4}{5}$", "B. $-\\dfrac{4}{5}$", "C. $\\dfrac{3}{4}$", "D. $-\\dfrac{3}{4}$"],
+        correct: 1,
+        explanation: "In Quadrant II, cosine is negative: $\\cos \\alpha = -\\sqrt{1 - (3/5)^2} = -4/5$. [CSCA 12.21 Q19]"
+      },
+      {
+        id: 33,
+        topic: "Trigonometry: Quotient Identity",
+        question: "Which of the following algebraic relations is correct? ( )",
+        options: [
+          "A. $\\tan x = \\dfrac{\\sin x}{\\cos x}\\; (\\cos x \\ne 0)$",
+          "B. $\\tan x = \\dfrac{1}{\\cos x}\\; (\\cos x \\ne 0)$",
+          "C. $\\tan x = \\dfrac{\\cos x}{\\sin x}\\; (\\cos x \\ne 0)$",
+          "D. $\\tan x = \\dfrac{1}{\\sin x}\\; (\\cos x \\ne 0)$"
+        ],
+        correct: 0,
+        explanation: "By quotient definition, $\\tan x = \\dfrac{\\sin x}{\\cos x}$ for $\\cos x \\ne 0$. [CSCA March Q21]"
+      },
+      {
+        id: 34,
+        topic: "Trigonometry: Cosine Periodicity & Graph",
+        question: "Regarding the function $y = \\cos x$, which statement is correct? ( )",
+        options: [
+          "A. $\\cos(x + \\pi) = \\cos x$",
+          "B. The function is odd",
+          "C. The function is increasing on the interval $[0, \\pi]$",
+          "D. The function is periodic with period $2\\pi$"
+        ],
+        correct: 3,
+        explanation: "Cosine has fundamental period $2\\pi$. It is even and decreases on $[0, \\pi]$. [CSCA 12.21 Q31]"
+      },
+      {
+        id: 35,
+        topic: "Trigonometry: Period of Scaled Cosine",
+        question: "The minimum positive period of $f(x) = 3\\cos\\left(4x - \\dfrac{\\pi}{3}\\right)$ is ( )",
+        options: ["A. $\\dfrac{\\pi}{3}$", "B. $\\dfrac{\\pi}{2}$", "C. $\\dfrac{\\pi}{4}$", "D. $2\\pi$"],
+        correct: 1,
+        explanation: "$T = \\dfrac{2\\pi}{|\\omega|} = \\dfrac{2\\pi}{4} = \\dfrac{\\pi}{2}$. [CSCA March Q31]"
+      },
+      {
+        id: 36,
+        topic: "Trigonometry: Period of Scaled Tangent",
+        question: "The minimum positive period of $y = 2\\tan\\left(3x + \\dfrac{\\pi}{4}\\right)$ is ( )",
+        options: ["A. $2\\pi$", "B. $\\dfrac{\\pi}{4}$", "C. $\\pi$", "D. $\\dfrac{\\pi}{3}$"],
+        correct: 3,
+        explanation: "For tangent, standard period is $\\pi$. Transformed period $T = \\dfrac{\\pi}{|\\omega|} = \\dfrac{\\pi}{3}$. [CSCA April Q39]"
+      },
+      {
+        id: 37,
+        topic: "Trigonometry: Reduction Formula Sign",
+        question: "Which of the following reduction equations is correct? ( )",
+        options: [
+          "A. $\\cos(\\pi + \\alpha) = \\cos \\alpha$",
+          "B. $\\sin(\\pi + \\alpha) = \\sin \\alpha$",
+          "C. $\\cos\\left(\\dfrac{\\pi}{2} + \\alpha\\right) = \\sin \\alpha$",
+          "D. $\\sin\\left(\\dfrac{\\pi}{2} + \\alpha\\right) = \\cos \\alpha$"
+        ],
+        correct: 3,
+        explanation: "By complementary reduction, $\\sin(\\pi/2 + \\alpha) = \\cos \\alpha$. [CSCA April Q38]"
+      },
+      {
+        id: 38,
+        topic: "Trigonometry: Monotonicity of Negative Frequency",
+        question: "Which of the following statements about $y = \\tan(-2x)$ is correct? ( )",
+        options: [
+          "A. The function is bounded on its domain",
+          "B. The domain of the function is $\\mathbb{R}$",
+          "C. The fundamental period of the function is $\\pi$",
+          "D. The function is monotonically decreasing on $\\left(-\\dfrac{\\pi}{4}, \\dfrac{\\pi}{4}\\right)$"
+        ],
+        correct: 3,
+        explanation: "Since $\\tan(-2x) = -\\tan(2x)$, the positive derivative of $\\tan u$ is negated, making it strictly decreasing on its open branches. [CSCA June Q39]"
+      },
+
+      // 39-48: Compound Angles, Double Angles & Auxiliary Identity
+      {
+        id: 39,
+        topic: "Trig Identities: Compound Difference Value",
+        question: "Given $\\sin\\dfrac{\\pi}{4} = \\dfrac{\\sqrt{2}}{2}$ and $\\sin\\dfrac{\\pi}{6} = \\dfrac{1}{2}$, find $\\cos\\dfrac{\\pi}{12}$ using $45^\\circ - 30^\\circ$: ( )",
+        options: [
+          "A. $\\dfrac{\\sqrt{6}}{4}$",
+          "B. $\\dfrac{\\sqrt{6} + \\sqrt{2}}{4}$",
+          "C. $\\dfrac{\\sqrt{6} - \\sqrt{2}}{4}$",
+          "D. $\\dfrac{1 + \\sqrt{3}}{4}$"
+        ],
+        correct: 1,
+        explanation: "$\\cos(45^\\circ - 30^\\circ) = \\cos 45^\\circ\\cos 30^\\circ + \\sin 45^\\circ\\sin 30^\\circ = \\dfrac{\\sqrt{6}+\\sqrt{2}}{4}$. [CSCA 12.21 Q35]"
+      },
+      {
+        id: 40,
+        topic: "Trig Identities: Tangent Compound Angle",
+        question: "Given $\\tan\\dfrac{\\pi}{4} = 1$ and $\\tan\\dfrac{\\pi}{6} = \\dfrac{\\sqrt{3}}{3}$, then $\\tan\\dfrac{\\pi}{12} =$ ( )",
+        options: [
+          "A. $1 - \\dfrac{\\sqrt{3}}{3}$",
+          "B. $1 + \\dfrac{\\sqrt{3}}{3}$",
+          "C. $2 - \\sqrt{3}$",
+          "D. $2 + \\sqrt{3}$"
+        ],
+        correct: 2,
+        explanation: "$\\tan(45^\\circ - 30^\\circ) = \\dfrac{1 - 1/\\sqrt{3}}{1 + 1/\\sqrt{3}} = \\dfrac{\\sqrt{3}-1}{\\sqrt{3}+1} = 2 - \\sqrt{3}$. [CSCA June Q34]"
+      },
+      {
+        id: 41,
+        topic: "Trig Identities: Cosine Compound Sum",
+        question: "$\\cos 75^\\circ =$ ( )",
+        options: [
+          "A. $\\dfrac{\\sqrt{6} - \\sqrt{2}}{4}$",
+          "B. $-\\dfrac{\\sqrt{6} + \\sqrt{2}}{4}$",
+          "C. $\\dfrac{\\sqrt{2} - \\sqrt{6}}{4}$",
+          "D. $\\dfrac{\\sqrt{6} + \\sqrt{2}}{4}$"
+        ],
+        correct: 0,
+        explanation: "$\\cos(45^\\circ + 30^\\circ) = \\cos 45^\\circ\\cos 30^\\circ - \\sin 45^\\circ\\sin 30^\\circ = \\dfrac{\\sqrt{6}-\\sqrt{2}}{4}$. [CSCA April Q35]"
+      },
+      {
+        id: 42,
+        topic: "Trig Identities: Double Angle Cosine",
+        question: "If $\\sin \\alpha = \\dfrac{1}{4}$, then $\\cos 2\\alpha =$ ( )",
+        options: ["A. $-\\dfrac{7}{8}$", "B. $\\dfrac{1}{8}$", "C. $\\dfrac{7}{8}$", "D. $-\\dfrac{1}{8}$"],
+        correct: 2,
+        explanation: "$\\cos 2\\alpha = 1 - 2\\sin^2\\alpha = 1 - 2(1/16) = 1 - 1/8 = 7/8$. [CSCA 12.21 Q27]"
+      },
+      {
+        id: 43,
+        topic: "Trig Identities: Double Angle Sine",
+        question: "If $\\sin \\alpha = \\dfrac{3}{5}$, and $\\alpha$ belongs to the first quadrant, then $\\sin 2\\alpha =$ ( )",
+        options: ["A. $\\dfrac{12}{25}$", "B. $\\dfrac{24}{25}$", "C. $\\dfrac{18}{25}$", "D. $\\dfrac{7}{25}$"],
+        correct: 1,
+        explanation: "$\\cos \\alpha = 4/5$. $\\sin 2\\alpha = 2\\sin \\alpha\\cos \\alpha = 2(3/5)(4/5) = 24/25$. [CSCA 1.25 Q24]"
+      },
+      {
+        id: 44,
+        topic: "Trig Identities: Tangent Conversion",
+        question: "Given $\\dfrac{\\cos \\alpha - \\sin \\alpha}{\\cos \\alpha + \\sin \\alpha} = \\dfrac{1}{3}$, find $\\tan \\alpha$. ( )",
+        options: ["A. $\\dfrac{1}{2}$", "B. $\\dfrac{1}{4}$", "C. $\\dfrac{2}{3}$", "D. $\\dfrac{1}{3}$"],
+        correct: 0,
+        explanation: "Divide numerator and denominator by $\\cos \\alpha$: $\\dfrac{1 - \\tan \\alpha}{1 + \\tan \\alpha} = \\dfrac{1}{3} \\implies 3 - 3\\tan \\alpha = 1 + \\tan \\alpha \\implies 4\\tan \\alpha = 2 \\implies \\tan \\alpha = 1/2$. [CSCA 12.21 Q40]"
+      },
+      {
+        id: 45,
+        topic: "Trig Identities: Half-Angle Sine in QII",
+        question: "Given $\\cos \\alpha = -\\dfrac{1}{2}$ and $\\alpha \\in \\left(\\dfrac{\\pi}{2}, \\pi\\right)$, the value of $\\sin\\dfrac{\\alpha}{2}$ is ( )",
+        options: ["A. $-\\dfrac{\\sqrt{3}}{2}$", "B. $\\dfrac{\\sqrt{3}}{2}$", "C. $\\dfrac{1}{2}$", "D. $-\\dfrac{1}{2}$"],
+        correct: 1,
+        explanation: "$\\alpha/2 \\in (\\pi/4, \\pi/2)$ is in Quadrant I, so sine is positive: $\\sqrt{\\dfrac{1 - (-1/2)}{2}} = \\dfrac{\\sqrt{3}}{2}$. [CSCA 12.21 Q34]"
+      },
+      {
+        id: 46,
+        topic: "Trig Identities: Half-Angle Cosine in QIII",
+        question: "Let $\\sin \\alpha = -\\dfrac{12}{13}$ with $\\alpha \\in \\left(\\pi, \\dfrac{3\\pi}{2}\\right)$. Then $\\cos\\dfrac{\\alpha}{2} =$ ( )",
+        options: ["A. $\\dfrac{3\\sqrt{13}}{13}$", "B. $-\\dfrac{3\\sqrt{13}}{13}$", "C. $-\\dfrac{2\\sqrt{13}}{13}$", "D. $\\dfrac{2\\sqrt{13}}{13}$"],
+        correct: 2,
+        explanation: "$\\cos \\alpha = -5/13$. $\\alpha/2 \\in (\\pi/2, 3\\pi/4)$ is in Quadrant II where cosine is negative: $-\\sqrt{\\dfrac{1 - 5/13}{2}} = -\\dfrac{2}{\\sqrt{13}} = -\\dfrac{2\\sqrt{13}}{13}$. [CSCA 1.25 Q36]"
+      },
+      {
+        id: 47,
+        topic: "Trig Identities: Half-Angle Tangent",
+        question: "If $\\cos \\alpha = \\dfrac{1}{3}$ and $-\\dfrac{\\pi}{2} < \\alpha < 0$, then $\\tan\\dfrac{\\alpha}{2} =$ ( )",
+        options: ["A. $\\dfrac{\\sqrt{2}}{2}$", "B. $-\\sqrt{2}$", "C. $-\\dfrac{\\sqrt{2}}{2}$", "D. $\\sqrt{2}$"],
+        correct: 2,
+        explanation: "$\\sin \\alpha = -\\sqrt{8}/3 = -2\\sqrt{2}/3$. $\\tan(\\alpha/2) = \\dfrac{\\sin \\alpha}{1 + \\cos \\alpha} = \\dfrac{-2\\sqrt{2}/3}{4/3} = -\\dfrac{\\sqrt{2}}{2}$. [CSCA March Q38]"
+      },
+      {
+        id: 48,
+        topic: "Optimization: Auxiliary Angle Amplitude",
+        question: "The maximum value of the function $y = 1\\sin x + \\sqrt{3}\\cos x$ is ( )",
+        options: ["A. $1$", "B. $2$", "C. $\\sqrt{3}$", "D. $4$"],
+        correct: 1,
+        explanation: "By auxiliary angle transformation: $R = \\sqrt{1^2 + (\\sqrt{3})^2} = \\sqrt{4} = 2$. Maximum is $2$. [Module 4 Slide 16]"
+      }
+    ];
+
+    /* ==========================================================================
+       2. EXAM APPLICATION STATE
+       ========================================================================== */
+    const RESULTS_API_URL = 'https://csca-results.csca-test.workers.dev/submit';
+    const PENDING_KEY = 'csca_minimock_48q_result';
+
+    let studentInfo = { name: '', email: '' };
+    let entryTimestamp = null;
+    let exitTimestamp = null;
+    let submissionId = null;
+    let currentQIndex = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let markedQuestions = new Array(questions.length).fill(false);
+    let examDurationSeconds = 60 * 60; // 1 hour (3600 seconds)
+    let timeRemaining = examDurationSeconds;
+    let timerInterval = null;
+
+    /* ==========================================================================
+       3. BRIGHTER, AIRY HERO CANVAS PARTICLES
+       ========================================================================== */
+    (function initEntryCanvas() {
+      const canvas = document.getElementById('entry-bg-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let mouse = { x: null, y: null, radius: 160 };
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      const nodes = [];
+      const nodeCount = Math.min(Math.floor(window.innerWidth / 24), 50);
+
+      class GeometricNode {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.8;
+          this.vy = (Math.random() - 0.5) * 0.8;
+          this.radius = Math.random() * 12 + 5;
+          this.baseRadius = this.radius;
+          this.color = ['#38BDF8', '#34D399', '#FB923C', '#A78BFA'][Math.floor(Math.random() * 4)];
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          if (this.x < 0) this.x = width;
+          if (this.x > width) this.x = 0;
+          if (this.y < 0) this.y = height;
+          if (this.y > height) this.y = 0;
+
+          if (mouse.x !== null && mouse.y !== null) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius && this.radius < this.baseRadius * 2) {
+              this.radius += 0.8;
+            } else if (this.radius > this.baseRadius) {
+              this.radius -= 0.3;
+            }
+          } else if (this.radius > this.baseRadius) {
+            this.radius -= 0.3;
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.strokeStyle = this.color;
+          ctx.globalAlpha = 0.55;
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = 0.9;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < nodeCount; i++) nodes.push(new GeometricNode());
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < nodes.length; i++) {
+          nodes[i].update();
+          nodes[i].draw();
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 135) {
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = '#38BDF8';
+              ctx.globalAlpha = (1 - dist / 135) * 0.25;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    /* ==========================================================================
+       4. CSCA.AI LOGO TRANSITION OVERLAY
+       ========================================================================== */
+    function triggerScreenTransition(targetScreenId, statusMessage, onComplete) {
+      const overlay = document.getElementById('transition-overlay');
+      const text = document.getElementById('transition-status-text');
+      text.textContent = statusMessage;
+      overlay.classList.add('active');
+
+      setTimeout(() => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('is-active'));
+        document.getElementById(targetScreenId).classList.add('is-active');
+
+        if (typeof onComplete === 'function') onComplete();
+
+        setTimeout(() => {
+          overlay.classList.remove('active');
+        }, 350);
+      }, 900);
+    }
+
+    /* ==========================================================================
+       5. START EXAM HANDLER
+       ========================================================================== */
+    function handleStartExam(e) {
+      e.preventDefault();
+      const studentSelect = document.getElementById('student-select');
+      const emailInput = document.getElementById('student-email');
+
+      if (!studentSelect.value) return;
+
+      studentInfo.name = studentSelect.value;
+      studentInfo.email = emailInput.value.trim() || 'candidate@csca.org';
+      entryTimestamp = new Date();
+      submissionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'CSCA-MM-' + Date.now();
+
+      document.getElementById('display-student-name').textContent = studentInfo.name;
+      document.getElementById('display-student-email').textContent = studentInfo.email;
+
+      const initials = studentInfo.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById('student-avatar').textContent = initials;
+
+      buildQuestionGrid();
+      loadQuestion(0);
+
+      triggerScreenTransition('screen-exam', 'LAUNCHING 1-HOUR MINI-MOCK...', () => {
+        startTimer();
+        if (window.MathJax) MathJax.typesetPromise();
+      });
+    }
+
+    function buildQuestionGrid() {
+      const grid = document.getElementById('q-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i < questions.length; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'q-cell';
+        cell.textContent = i + 1;
+        cell.id = `q-cell-${i}`;
+        cell.onclick = () => loadQuestion(i);
+        grid.appendChild(cell);
+      }
+      updateGridState();
+    }
+
+    function updateGridState() {
+      let answeredCount = 0;
+      for (let i = 0; i < questions.length; i++) {
+        const cell = document.getElementById(`q-cell-${i}`);
+        if (!cell) continue;
+        cell.className = 'q-cell';
+        if (i === currentQIndex) cell.classList.add('current');
+        if (userAnswers[i] !== null) {
+          cell.classList.add('answered');
+          answeredCount++;
+        }
+        if (markedQuestions[i]) {
+          cell.classList.add('marked');
+        }
+      }
+      document.getElementById('progress-count').textContent = `${answeredCount} / ${questions.length} Answered`;
+    }
+
+    function loadQuestion(index) {
+      currentQIndex = index;
+      const q = questions[index];
+
+      document.getElementById('question-counter').textContent = `Question ${index + 1} of ${questions.length}`;
+      document.getElementById('question-topic').textContent = q.topic;
+      document.getElementById('question-text').innerHTML = q.question;
+
+      const markBtn = document.getElementById('btn-mark');
+      markBtn.style.color = markedQuestions[index] ? 'var(--brand-orange)' : 'var(--ink-soft)';
+      markBtn.textContent = markedQuestions[index] ? '🔖 Marked' : '🔖 Mark for Review';
+
+      const list = document.getElementById('options-list');
+      list.innerHTML = '';
+
+      q.options.forEach((optText, optIdx) => {
+        const item = document.createElement('div');
+        item.className = 'option-item' + (userAnswers[index] === optIdx ? ' selected' : '');
+        item.onclick = () => selectOption(optIdx);
+        item.innerHTML = `
+          <div class="option-radio"></div>
+          <div>${optText}</div>
+        `;
+        list.appendChild(item);
+      });
+
+      document.getElementById('btn-prev').disabled = (index === 0);
+      document.getElementById('btn-next').disabled = (index === questions.length - 1);
+
+      updateGridState();
+
+      if (window.MathJax) {
+        MathJax.typesetPromise([document.getElementById('question-text'), document.getElementById('options-list')]);
+      }
+    }
+
+    function selectOption(optIdx) {
+      userAnswers[currentQIndex] = optIdx;
+      loadQuestion(currentQIndex);
+    }
+
+    function toggleMarkQuestion() {
+      markedQuestions[currentQIndex] = !markedQuestions[currentQIndex];
+      loadQuestion(currentQIndex);
+    }
+
+    function navigateQuestion(delta) {
+      const target = currentQIndex + delta;
+      if (target >= 0 && target < questions.length) {
+        loadQuestion(target);
+      }
+    }
+
+    /* ==========================================================================
+       6. BLUE TIMER & TIMING CONTROL
+       ========================================================================== */
+    function startTimer() {
+      timeRemaining = examDurationSeconds;
+      const display = document.getElementById('timer-display');
+      const track = document.getElementById('timer-track');
+      const fill = document.getElementById('timer-fill');
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        const mins = Math.floor(timeRemaining / 60);
+        const secs = timeRemaining % 60;
+        display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+        const pct = (timeRemaining / examDurationSeconds) * 100;
+        fill.style.width = `${pct}%`;
+
+        if (timeRemaining <= 300) {
+          display.classList.add('critical');
+          track.classList.add('critical');
+        }
+
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          executeFinalSubmission();
+        }
+      }, 1000);
+    }
+
+    /* ==========================================================================
+       7. SUBMISSION SHEET CONTROLLER (NO BROWSER POPUPS)
+       ========================================================================== */
+    function openSubmitToast() {
+      const unanswered = userAnswers.filter(a => a === null).length;
+      const warningText = document.getElementById('submit-warning-text');
+      if (unanswered > 0) {
+        warningText.textContent = `You have ${unanswered} unanswered question(s). Ready to conclude your exam?`;
+      } else {
+        warningText.textContent = `You have completed all 48 questions! Ready to calculate your score?`;
+      }
+      document.getElementById('submit-toast-backdrop').classList.add('is-open');
+    }
+
+    function closeSubmitToast() {
+      document.getElementById('submit-toast-backdrop').classList.remove('is-open');
+    }
+
+    function executeFinalSubmission() {
+      closeSubmitToast();
+      clearInterval(timerInterval);
+      exitTimestamp = new Date();
+
+      let correctCount = 0;
+      userAnswers.forEach((ans, idx) => {
+        if (ans === questions[idx].correct) correctCount++;
+      });
+
+      const totalPct = Math.round((correctCount / questions.length) * 100);
+
+      // Simplified 3-Tier Classification
+      let tierTitle = "";
+      let tierClass = "";
+      if (totalPct >= 60) {
+        tierTitle = "Good score";
+        tierClass = "tier-good";
+      } else if (totalPct >= 40) {
+        tierTitle = "Average score";
+        tierClass = "tier-average";
+      } else {
+        tierTitle = "Need Improvement";
+        tierClass = "tier-poor";
+      }
+
+      // Update Outro View
+      document.getElementById('outro-student-name').textContent = studentInfo.name;
+      document.getElementById('outro-student-email').textContent = studentInfo.email;
+      document.getElementById('stat-score').textContent = `${correctCount} / ${questions.length}`;
+      document.getElementById('stat-pct').textContent = `${totalPct}%`;
+      document.getElementById('stat-grade').textContent = tierTitle;
+
+      const spentSecs = examDurationSeconds - timeRemaining;
+      const spentMins = Math.floor(spentSecs / 60);
+      const spentSecRem = spentSecs % 60;
+      const spentString = `${spentMins}m ${spentSecRem}s`;
+      document.getElementById('stat-time').textContent = spentString;
+
+      const badge = document.getElementById('score-badge');
+      badge.className = `score-badge ${tierClass}`;
+      badge.textContent = tierTitle;
+
+      // Populate Report Card (WITHOUT ID string)
+      document.getElementById('rep-name').textContent = studentInfo.name;
+      document.getElementById('rep-email').textContent = studentInfo.email;
+      document.getElementById('rep-score-tier').textContent = `${correctCount} / ${questions.length} (${totalPct}%) — ${tierTitle}`;
+      document.getElementById('rep-time').textContent = `${spentString} (Allotted 60m)`;
+      document.getElementById('rep-date').textContent = new Date().toLocaleDateString('en-CA');
+
+      buildTopicBreakdownTable();
+      buildReviewList();
+
+      triggerScreenTransition('screen-outro', 'COMPILING PERFORMANCE ANALYTICS...', () => {
+        if (window.MathJax) MathJax.typesetPromise([document.getElementById('review-list')]);
+      });
+
+      // Submit to Cloudflare Worker with 'Mini-mock' in payload name
+      const wrongQuestions = [];
+      userAnswers.forEach((ans, idx) => {
+        if (ans !== questions[idx].correct) wrongQuestions.push(idx + 1);
+      });
+
+      submitResult({
+        id: submissionId,
+        username: `${studentInfo.name} (Mini-mock)`,
+        score: correctCount,
+        total: questions.length,
+        percent: totalPct,
+        wrongQuestions: wrongQuestions,
+        startedAt: entryTimestamp ? entryTimestamp.toISOString() : null,
+        submittedAt: exitTimestamp.toISOString()
+      });
+    }
+
+    function buildTopicBreakdownTable() {
+      const topicStats = {};
+      questions.forEach((q, idx) => {
+        const top = q.topic.split(':')[0].trim();
+        if (!topicStats[top]) topicStats[top] = { total: 0, correct: 0 };
+        topicStats[top].total++;
+        if (userAnswers[idx] === q.correct) topicStats[top].correct++;
+      });
+
+      const tbody = document.getElementById('report-breakdown-rows');
+      tbody.innerHTML = '';
+      for (const [topName, stat] of Object.entries(topicStats)) {
+        const pct = Math.round((stat.correct / stat.total) * 100);
+        let rating = "Need Improvement";
+        if (pct >= 60) rating = "Good score";
+        else if (pct >= 40) rating = "Average score";
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${topName}</strong></td>
+          <td>${stat.correct} / ${stat.total}</td>
+          <td><span style="font-family:var(--font-mono); font-weight:700;">${pct}%</span></td>
+          <td><span style="font-weight:700; color:${pct >= 60 ? 'var(--primary-dark)' : (pct >= 40 ? '#D97706' : 'var(--crimson)')};">${rating}</span></td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function buildReviewList() {
+      const list = document.getElementById('review-list');
+      list.innerHTML = '';
+
+      questions.forEach((q, idx) => {
+        const uAns = userAnswers[idx];
+        const isCorr = uAns === q.correct;
+        const isSkip = uAns === null;
+
+        const item = document.createElement('div');
+        item.className = 'review-item ' + (isSkip ? 'is-skipped' : (isCorr ? 'is-correct' : 'is-incorrect'));
+
+        const userText = isSkip ? '<em>Skipped / Not Answered</em>' : q.options[uAns];
+        const correctText = q.options[q.correct];
+
+        item.innerHTML = `
+          <div class="review-q-num">Question ${idx + 1} • ${q.topic}</div>
+          <div class="review-q-text">${q.question}</div>
+          <div class="review-ans user-ans">Candidate Selection: <span>${userText}</span></div>
+          ${!isCorr ? `<div class="review-ans correct-ans">Official Answer: <span>${correctText}</span></div>` : ''}
+          <div class="review-exp"><strong>Pedagogical Solution:</strong> ${q.explanation}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    /* ==========================================================================
+       8. MODAL & REPORT EXPORT CONTROLS
+       ========================================================================== */
+    function openReportModal() {
+      document.getElementById('printable-report-modal').classList.add('is-open');
+    }
+    function closeReportModal() {
+      document.getElementById('printable-report-modal').classList.remove('is-open');
+    }
+
+    /* ==========================================================================
+       9. CLOUDFLARE SYNC WITH FAILOVER
+       ========================================================================== */
+    async function postResult(data) {
+      const res = await fetch(RESULTS_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Cloudflare responded ' + res.status);
+    }
+
+    async function submitResult(data) {
+      const statusEl = document.getElementById('export-status');
+      if (statusEl) statusEl.textContent = 'Syncing report with CSCA assessment cloud...';
+
+      try { localStorage.setItem(PENDING_KEY, JSON.stringify(data)); } catch (e) {}
+
+      const delays = [0, 1500, 3500];
+      for (const d of delays) {
+        if (d) await new Promise(r => setTimeout(r, d));
+        try {
+          await postResult(data);
+          try { localStorage.removeItem(PENDING_KEY); } catch (e) {}
+          if (statusEl) statusEl.textContent = '✅ Assessment result successfully logged.';
+          return;
+        } catch (err) {
+          console.warn('Sync attempt failed:', err);
+        }
+      }
+      if (statusEl) statusEl.textContent = '⚠️ Result saved locally. Cloud will sync on reconnection.';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const cached = localStorage.getItem(PENDING_KEY);
+        if (cached) postResult(JSON.parse(cached)).then(() => localStorage.removeItem(PENDING_KEY)).catch(() => {});
+      } catch (e) {}
+    });
+
+    function restartExam() {
+      userAnswers.fill(null);
+      markedQuestions.fill(false);
+      currentQIndex = 0;
+      entryTimestamp = null;
+      exitTimestamp = null;
+      submissionId = null;
+      triggerScreenTransition('screen-entry', 'RESETTING WORKSPACE...', () => {});
+    }
+  </script>
+</body>
+</html>
